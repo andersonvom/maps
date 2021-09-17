@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, StyleSheet, TouchableOpacity, Pressable, Alert} from 'react-native';
 import {Icon} from 'react-native-elements';
 import PropTypes from 'prop-types';
 
@@ -73,6 +73,7 @@ import UserLocationChange from '../examples/UserLocation/UserLocationChange';
 // MISC
 import BugReportTemplate from '../examples/BugReportExample';
 import CacheManagement from '../examples/CacheManagement';
+import MapboxGL from '@react-native-mapbox-gl/maps';
 
 const styles = StyleSheet.create({
   exampleList: {
@@ -226,6 +227,13 @@ function ExampleGroupComponent({items, navigation, showBack}) {
   return (
     <View style={sheet.matchParent}>
       <MapHeader label={title} {...back} />
+      <Pressable onPress={() => {
+        const newToken = 'foobar';
+        MapboxGL.setAccessToken(newToken);
+        Alert.alert(`Token changed to: ${newToken}`)
+      }}>
+        <Text style={[styles.exampleListLabel, {color: 'blue'}]}>Change Token</Text>
+      </Pressable>
       <View style={sheet.matchParent}>
         <FlatList
           style={styles.exampleList}
